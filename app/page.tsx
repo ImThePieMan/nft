@@ -1,11 +1,14 @@
 import MintCard from "@/components/MintCard";
 import Header from "@/components/Header";
 import HowToMint from "@/components/HowToMint";
+import LatestMints from "@/components/LatestMints";
 
 export default function Home() {
   return (
     <main className="flex flex-col items-center bg-gray-50 min-h-screen">
       <Header />
+
+      <LatestMints />
 
       <HowToMint />
 
