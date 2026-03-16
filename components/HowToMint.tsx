@@ -19,6 +19,46 @@ const steps = [
 
 export default function HowToMint() {
   return (
+    <>
+      {/* What is minting / NFT ownership explainer */}
+      <section className="w-full max-w-3xl mx-auto px-4 pt-4 pb-12">
+        <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
+          What is an NFT?
+        </p>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono mb-3">
+              Minting
+            </p>
+            <p className="text-gray-700 text-sm leading-relaxed font-medium mb-2">
+              What does it mean to mint?
+            </p>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              Minting is the process of publishing a unique digital asset on the blockchain. When you
+              mint an NFT you create a permanent on‑chain record that proves the token exists — and
+              that you were the one who brought it to life. Think of it like pressing a vinyl record:
+              once it&apos;s pressed, it&apos;s real and traceable forever.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono mb-3">
+              Ownership
+            </p>
+            <p className="text-gray-700 text-sm leading-relaxed font-medium mb-2">
+              How do you own an NFT?
+            </p>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              Ownership is stored directly in your wallet on the blockchain — no platform or company
+              can take it away. As long as you hold the private key to your wallet, you own the NFT.
+              You can hold it, display it in galleries like OpenSea, or sell it to anyone, anywhere,
+              at any time without asking anyone&apos;s permission.
+            </p>
+          </div>
+        </div>
+      </section>
+
     <section className="w-full max-w-3xl mx-auto px-4 pb-16">
       <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
         How to mint
@@ -46,5 +86,6 @@ export default function HowToMint() {
         ))}
       </ol>
     </section>
+    </>
   );
 }
