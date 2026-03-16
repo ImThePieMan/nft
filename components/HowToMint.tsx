@@ -21,19 +21,19 @@ function ScrollDown({ targetId, label }: { targetId: string; label: string }) {
 const steps = [
   {
     title: "Install a wallet",
-    desc: "Download MetaMask (or any WalletConnect-compatible wallet) and create an account. Keep your seed phrase safe — never share it.",
+    desc: "Download MetaMask (or any WalletConnect-compatible wallet) and create an account. Write down your seed phrase and keep it safe — never share it with anyone.",
   },
   {
     title: "Add Polygon network",
-    desc: 'In MetaMask go to Settings → Networks → Add Network and add Polygon Mainnet, or visit chainlist.org and click "Add to MetaMask" next to Polygon.',
+    desc: 'Open MetaMask → Settings → Networks → Add Network and add Polygon Mainnet. Or visit chainlist.org and click "Add to MetaMask" next to Polygon — takes 10 seconds.',
   },
   {
-    title: "Get MATIC",
-    desc: "Buy MATIC on any major exchange (Binance, Coinbase, Kraken) and withdraw it to your wallet on the Polygon network, or bridge ETH via the Polygon Bridge.",
+    title: "Get POL",
+    desc: "Buy POL on any major exchange (Binance, Coinbase, Kraken) and withdraw to your Polygon wallet. Or bridge ETH via the Polygon Bridge. Gas on Polygon is under $0.01.",
   },
   {
     title: "Connect & Mint",
-    desc: 'Scroll down, click "Connect Wallet", select the quantity you want, and confirm the transaction. Gas fees on Polygon are minimal — usually under $0.01.',
+    desc: "Click \"Connect Wallet\" above, choose your quantity, and confirm the transaction. Your NFT appears in your wallet instantly — yours forever.",
   },
 ];
 
@@ -118,7 +118,7 @@ const bodyStyle: React.CSSProperties = {
 };
 
 export default function HowToMint() {
-  const [nftOpen, setNftOpen] = useState(true);
+  const [nftOpen, setNftOpen] = useState(false);
   const [howOpen, setHowOpen] = useState(true);
 
   return (
@@ -135,7 +135,7 @@ export default function HowToMint() {
             style={!nftOpen ? { cursor: "pointer" } : undefined}
             title={!nftOpen ? "Click to restore" : undefined}
           >
-            <span className="truncate">What_Is_NFT.txt</span>
+            <span className="truncate">NFT_FAQ.txt</span>
             <div
               className="retro-window-close"
               onClick={(e) => { e.stopPropagation(); setNftOpen((v) => !v); }}
@@ -179,7 +179,7 @@ export default function HowToMint() {
           )}
         </div>
 
-        <ScrollDown targetId="how-to-mint" label="How to Mint" />
+        <ScrollDown targetId="how-to-mint" label="Ready? See how to mint →" />
       </section>
 
       {/* How to Mint window */}
@@ -191,7 +191,7 @@ export default function HowToMint() {
             style={!howOpen ? { cursor: "pointer" } : undefined}
             title={!howOpen ? "Click to restore" : undefined}
           >
-            <span className="truncate">How_To_Mint.exe</span>
+            <span className="truncate">How_To_Mint.exe — 4 steps, 5 minutes</span>
             <div
               className="retro-window-close"
               onClick={(e) => { e.stopPropagation(); setHowOpen((v) => !v); }}
@@ -243,7 +243,7 @@ export default function HowToMint() {
           )}
         </div>
 
-        <ScrollDown targetId="mint-section" label="Claim NFT" />
+        <ScrollDown targetId="mint-section" label="Mint your NFT now ↑" />
       </section>
     </>
   );

@@ -11,24 +11,24 @@ export default function Header() {
 
   const reasons = [
     {
-      icon: "💾",
-      title: "Verified Contract",
-      desc: "Smart contract audited and verified on-chain — open source, no surprises.",
-    },
-    {
-      icon: "📁",
+      icon: "🔥",
       title: "Limited Supply",
-      desc: "Fixed collection size. Once sold out, no new tokens can ever be minted.",
-    },
-    {
-      icon: "🌐",
-      title: "On-Chain Provenance",
-      desc: "Full ownership history permanently recorded on the blockchain.",
+      desc: "Only 1 000 tokens exist — ever. No reprints. No expansions. When they're gone, they're gone.",
     },
     {
       icon: "🎨",
-      title: "Community Access",
-      desc: "Holders get exclusive access to drops, events, and the inner circle.",
+      title: "Exclusive Access",
+      desc: "Holders unlock private drops, IRL events, and early access to future releases — permanently.",
+    },
+    {
+      icon: "💾",
+      title: "Verified Contract",
+      desc: "Audited, open-source smart contract. Every line of code is public — no hidden fees, no rug pulls.",
+    },
+    {
+      icon: "🌐",
+      title: "Yours Forever",
+      desc: "Ownership lives on the blockchain, not on our servers. Even if this site disappears, your token stays.",
     },
   ];
 
@@ -79,23 +79,33 @@ export default function Header() {
         {welcomeOpen && (
           <div className="retro-window-body text-center">
             <p
-              className="mb-6"
+              className="mb-2"
               style={{
                 fontFamily: "var(--font-vt323), monospace",
-                fontSize: "22px",
+                fontSize: "24px",
                 color: "#111111",
                 lineHeight: "1.5",
               }}
             >
-              Limited pixel art NFT collection on Polygon.<br />
-              Handcrafted, on-chain, forever yours.
+              1 000 unique pixel art pieces — handcrafted, on-chain, <strong>forever yours.</strong>
+            </p>
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "var(--font-vt323), monospace",
+                fontSize: "20px",
+                color: "#555",
+                lineHeight: "1.4",
+              }}
+            >
+              Minted on Polygon. Low gas. True ownership. No middlemen.
             </p>
             <button
               onClick={scrollToMint}
               className="retro-mint-btn"
-              style={{ width: "auto", padding: "14px 32px" }}
+              style={{ width: "auto", padding: "14px 36px" }}
             >
-              ▶ CLAIM NFT
+              ▶ MINT YOURS NOW
             </button>
           </div>
         )}
@@ -109,7 +119,7 @@ export default function Header() {
           style={!whyMintOpen ? { cursor: "pointer" } : undefined}
           title={!whyMintOpen ? "Click to restore" : undefined}
         >
-          <span className="truncate">Why_Mint.txt</span>
+          <span className="truncate">Why_Own_One.txt</span>
           <div
             className="retro-window-close"
             onClick={(e) => { e.stopPropagation(); setWhyMintOpen((v) => !v); }}
@@ -165,12 +175,12 @@ export default function Header() {
       {/* Scroll down */}
       <button
         onClick={() =>
-          document.getElementById("nft-explainer")?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById("how-to-mint")?.scrollIntoView({ behavior: "smooth" })
         }
         className="retro-btn"
         style={{ fontSize: "18px", padding: "8px 20px" }}
       >
-        ▼ What is an NFT?
+        ▼ How to Mint
       </button>
     </section>
   );

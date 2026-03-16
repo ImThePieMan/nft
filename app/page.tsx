@@ -7,11 +7,11 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center min-h-screen" style={{ background: "#2BABA5" }}>
       <Header />
-      <LatestMints />
-      <HowToMint />
-      <div id="mint-section" className="relative z-10 w-full px-4 py-12 max-w-screen-lg mx-auto">
+      <div id="mint-section" className="relative z-10 w-full px-4 pt-4 pb-12 max-w-screen-lg mx-auto">
         <MintCard />
       </div>
+      <LatestMints />
+      <HowToMint />
     </main>
   );
 }
