@@ -105,16 +105,16 @@ const nftCards = [
 
 const titleStyle: React.CSSProperties = {
   fontFamily: "var(--font-press-start), monospace",
-  fontSize: "10px",
+  fontSize: "14px",
   color: "#111111",
-  lineHeight: "1.7",
+  lineHeight: "1.6",
 };
 
 const bodyStyle: React.CSSProperties = {
   fontFamily: "var(--font-vt323), monospace",
-  fontSize: "18px",
+  fontSize: "14px",
   color: "#111111",
-  lineHeight: "1.4",
+  lineHeight: "1.6",
 };
 
 export default function HowToMint() {
@@ -151,9 +151,9 @@ export default function HowToMint() {
               className="mb-4"
               style={{
                 fontFamily: "var(--font-press-start), monospace",
-                fontSize: "9px",
+                fontSize: "13px",
                 color: "#888",
-                letterSpacing: "0.1em",
+                letterSpacing: "0.05em",
                 textTransform: "uppercase",
               }}
             >
@@ -215,7 +215,7 @@ export default function HowToMint() {
                         border: "3px solid #1A1A1A",
                         background: "#F9A822",
                         fontFamily: "var(--font-press-start), monospace",
-                        fontSize: "11px",
+                        fontSize: "14px",
                         color: "#111111",
                       }}
                     >

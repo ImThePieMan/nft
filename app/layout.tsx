@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Press_Start_2P, VT323, IBM_Plex_Mono } from "next/font/google";
+import { Chakra_Petch, Space_Mono, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 
-const pressStart2P = Press_Start_2P({
-  weight: "400",
+const chakraPetch = Chakra_Petch({
+  weight: ["400", "500", "600", "700"],
   variable: "--font-press-start",
   subsets: ["latin"],
 });
 
-const vt323 = VT323({
-  weight: "400",
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
   variable: "--font-vt323",
   subsets: ["latin"],
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+const firaCode = Fira_Code({
   weight: ["400", "500", "600"],
   variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pressStart2P.variable} ${vt323.variable} ${ibmPlexMono.variable} antialiased min-h-screen`}
+        className={`${chakraPetch.variable} ${spaceMono.variable} ${firaCode.variable} antialiased min-h-screen`}
         style={{ background: "#2BABA5" }}
       >
         <Providers>{children}</Providers>

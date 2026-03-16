@@ -82,9 +82,9 @@ export default function Header() {
               className="mb-2"
               style={{
                 fontFamily: "var(--font-vt323), monospace",
-                fontSize: "24px",
+                fontSize: "18px",
                 color: "#111111",
-                lineHeight: "1.5",
+                lineHeight: "1.6",
               }}
             >
               1 000 unique pixel art pieces — handcrafted, on-chain, <strong>forever yours.</strong>
@@ -93,9 +93,9 @@ export default function Header() {
               className="mb-6"
               style={{
                 fontFamily: "var(--font-vt323), monospace",
-                fontSize: "20px",
+                fontSize: "15px",
                 color: "#555",
-                lineHeight: "1.4",
+                lineHeight: "1.5",
               }}
             >
               Minted on Polygon. Low gas. True ownership. No middlemen.
@@ -146,20 +146,20 @@ export default function Header() {
                   <p
                     className="mb-1"
                     style={{
-                      fontFamily: "var(--font-press-start), monospace",
-                      fontSize: "9px",
-                      color: "#111111",
-                      lineHeight: "1.7",
+                  fontFamily: "var(--font-press-start), monospace",
+                    fontSize: "14px",
+                    color: "#111111",
+                    lineHeight: "1.6",
                     }}
                   >
                     {r.title}
                   </p>
                   <p
                     style={{
-                      fontFamily: "var(--font-vt323), monospace",
-                      fontSize: "17px",
-                      color: "#111111",
-                      lineHeight: "1.3",
+                  fontFamily: "var(--font-vt323), monospace",
+                    fontSize: "14px",
+                    color: "#111111",
+                    lineHeight: "1.5",
                     }}
                   >
                     {r.desc}

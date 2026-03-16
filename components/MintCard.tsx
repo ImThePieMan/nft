@@ -72,9 +72,9 @@ export default function MintCard() {
 
   const labelStyle = {
     fontFamily: "var(--font-press-start), monospace",
-    fontSize: "9px",
+    fontSize: "13px",
     color: "#111111",
-    lineHeight: "1.7",
+    lineHeight: "1.6",
   } as React.CSSProperties;
 
   const valueStyle = {
@@ -86,7 +86,7 @@ export default function MintCard() {
 
   const retrolabelStyle = {
     fontFamily: "var(--font-vt323), monospace",
-    fontSize: "20px",
+    fontSize: "15px",
     color: "#111111",
   } as React.CSSProperties;
 
@@ -134,7 +134,7 @@ export default function MintCard() {
                 className="px-2 py-1"
                 style={{
                   fontFamily: "var(--font-press-start), monospace",
-                  fontSize: "9px",
+                  fontSize: "12px",
                   background: "#F9A822",
                   border: "2px solid #1A1A1A",
                   color: "#111111",
@@ -148,7 +148,7 @@ export default function MintCard() {
                 className="px-2 py-1"
                 style={{
                   fontFamily: "var(--font-press-start), monospace",
-                  fontSize: "9px",
+                  fontSize: "12px",
                   background: "#E96635",
                   border: "2px solid #1A1A1A",
                   color: "white",
@@ -162,7 +162,7 @@ export default function MintCard() {
                 className="px-2 py-1"
                 style={{
                   fontFamily: "var(--font-press-start), monospace",
-                  fontSize: "9px",
+                  fontSize: "12px",
                   background: "#E96635",
                   border: "2px solid #1A1A1A",
                   color: "white",
@@ -181,7 +181,7 @@ export default function MintCard() {
             <p
               style={{
                 fontFamily: "var(--font-press-start), monospace",
-                fontSize: "10px",
+                fontSize: "14px",
                 color: "#111111",
                 lineHeight: "1.5",
               }}
@@ -307,9 +307,9 @@ export default function MintCard() {
               <p
                 style={{
                   fontFamily: "var(--font-press-start), monospace",
-                  fontSize: "9px",
+                  fontSize: "13px",
                   color: "#111111",
-                  lineHeight: "1.7",
+                  lineHeight: "1.6",
                   marginBottom: "8px",
                 }}
               >

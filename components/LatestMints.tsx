@@ -155,9 +155,9 @@ function MintCard({ item }: { item: MintItem }) {
           className="truncate"
           style={{
             fontFamily: "var(--font-press-start), monospace",
-            fontSize: "9px",
+            fontSize: "13px",
             color: "#111111",
-            lineHeight: "1.7",
+            lineHeight: "1.6",
           }}
         >
           {item.name}
@@ -171,7 +171,7 @@ function MintCard({ item }: { item: MintItem }) {
               color: "#111111",
             }}
           >
-            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "11px" }}>ID </span>
+            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "13px" }}>ID </span>
             {item.tokenId.toString()}
           </p>
           <p
@@ -182,7 +182,7 @@ function MintCard({ item }: { item: MintItem }) {
               color: "#111111",
             }}
           >
-            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "11px" }}>BY </span>
+            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "13px" }}>BY </span>
             {shortenAddress(item.owner)}
           </p>
         </div>
