@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 function ScrollDown({ targetId, label }: { targetId: string; label: string }) {
   return (
     <div className="flex justify-center pt-8 pb-2">
@@ -116,6 +118,9 @@ const bodyStyle: React.CSSProperties = {
 };
 
 export default function HowToMint() {
+  const [nftOpen, setNftOpen] = useState(true);
+  const [howOpen, setHowOpen] = useState(true);
+
   return (
     <>
       {/* NFT Explainer window */}
@@ -124,10 +129,22 @@ export default function HowToMint() {
         className="w-full max-w-3xl mx-auto px-4 pt-4 pb-12"
       >
         <div className="retro-window">
-          <div className="retro-window-header">
+          <div
+            className="retro-window-header"
+            onClick={!nftOpen ? () => setNftOpen(true) : undefined}
+            style={!nftOpen ? { cursor: "pointer" } : undefined}
+            title={!nftOpen ? "Click to restore" : undefined}
+          >
             <span className="truncate">What_Is_NFT.txt</span>
-            <div className="retro-window-close">✕</div>
+            <div
+              className="retro-window-close"
+              onClick={(e) => { e.stopPropagation(); setNftOpen((v) => !v); }}
+              title={nftOpen ? "Close" : "Restore"}
+            >
+              {nftOpen ? "✕" : "▲"}
+            </div>
           </div>
+          {nftOpen && (
           <div className="retro-window-body" style={{ display: "flex", flexDirection: "column", gap: "0" }}>
             {/* Section label */}
             <p
@@ -159,6 +176,7 @@ export default function HowToMint() {
               ))}
             </div>
           </div>
+          )}
         </div>
 
         <ScrollDown targetId="how-to-mint" label="How to Mint" />
@@ -167,10 +185,22 @@ export default function HowToMint() {
       {/* How to Mint window */}
       <section id="how-to-mint" className="w-full max-w-3xl mx-auto px-4 pb-16">
         <div className="retro-window">
-          <div className="retro-window-header">
+          <div
+            className="retro-window-header"
+            onClick={!howOpen ? () => setHowOpen(true) : undefined}
+            style={!howOpen ? { cursor: "pointer" } : undefined}
+            title={!howOpen ? "Click to restore" : undefined}
+          >
             <span className="truncate">How_To_Mint.exe</span>
-            <div className="retro-window-close">✕</div>
+            <div
+              className="retro-window-close"
+              onClick={(e) => { e.stopPropagation(); setHowOpen((v) => !v); }}
+              title={howOpen ? "Close" : "Restore"}
+            >
+              {howOpen ? "✕" : "▲"}
+            </div>
           </div>
+          {howOpen && (
           <div className="retro-window-body">
             <ol className="flex flex-col gap-0">
               {steps.map((step, i) => (
@@ -210,6 +240,7 @@ export default function HowToMint() {
               ))}
             </ol>
           </div>
+          )}
         </div>
 
         <ScrollDown targetId="mint-section" label="Claim NFT" />

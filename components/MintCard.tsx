@@ -11,6 +11,7 @@ import QuantitySelector from "./QuantitySelector";
 
 export default function MintCard() {
   const [quantity, setQuantity] = useState(1);
+  const [windowOpen, setWindowOpen] = useState(true);
 
   const { address, isConnected, chain } = useAccount();
 
@@ -94,11 +95,23 @@ export default function MintCard() {
       <div className="retro-window">
 
         {/* Window header */}
-        <div className="retro-window-header">
+        <div
+          className="retro-window-header"
+          onClick={!windowOpen ? () => setWindowOpen(true) : undefined}
+          style={!windowOpen ? { cursor: "pointer" } : undefined}
+          title={!windowOpen ? "Click to restore" : undefined}
+        >
           <span className="truncate">Mint_NFT.exe</span>
-          <div className="retro-window-close">✕</div>
+          <div
+            className="retro-window-close"
+            onClick={(e) => { e.stopPropagation(); setWindowOpen((v) => !v); }}
+            title={windowOpen ? "Close" : "Restore"}
+          >
+            {windowOpen ? "✕" : "▲"}
+          </div>
         </div>
 
+        {windowOpen && (<>
         {/* Collection image */}
         <div className="relative aspect-square w-full" style={{ borderBottom: "3px solid #1A1A1A" }}>
           <Image
@@ -345,6 +358,7 @@ export default function MintCard() {
             </div>
           )}
         </div>
+        </>)}
       </div>
     </div>
   );

@@ -73,6 +73,7 @@ body {
 .retro-window-body {
   padding: 20px;
   background: #faecb6;
+  animation: window-open 0.15s ease-out;
 }
 
 /* ── Retro Button ─────────────────────────────────────────────────────────── */

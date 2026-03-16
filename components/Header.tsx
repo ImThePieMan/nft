@@ -1,6 +1,11 @@
 "use client";
 
+import { useState } from "react";
+
 export default function Header() {
+  const [welcomeOpen, setWelcomeOpen] = useState(true);
+  const [whyMintOpen, setWhyMintOpen] = useState(true);
+
   const scrollToMint = () =>
     document.getElementById("mint-section")?.scrollIntoView({ behavior: "smooth" });
 
@@ -56,39 +61,64 @@ export default function Header() {
 
       {/* Welcome window */}
       <div className="retro-window w-full max-w-lg">
-        <div className="retro-window-header">
+        <div
+          className="retro-window-header"
+          onClick={!welcomeOpen ? () => setWelcomeOpen(true) : undefined}
+          style={!welcomeOpen ? { cursor: "pointer" } : undefined}
+          title={!welcomeOpen ? "Click to restore" : undefined}
+        >
           <span className="truncate">Welcome.exe</span>
-          <div className="retro-window-close">✕</div>
-        </div>
-        <div className="retro-window-body text-center">
-          <p
-            className="mb-6"
-            style={{
-              fontFamily: "var(--font-vt323), monospace",
-              fontSize: "22px",
-              color: "#111111",
-              lineHeight: "1.5",
-            }}
+          <div
+            className="retro-window-close"
+            onClick={(e) => { e.stopPropagation(); setWelcomeOpen((v) => !v); }}
+            title={welcomeOpen ? "Close" : "Restore"}
           >
-            Limited pixel art NFT collection on Polygon.<br />
-            Handcrafted, on-chain, forever yours.
-          </p>
-          <button
-            onClick={scrollToMint}
-            className="retro-mint-btn"
-            style={{ width: "auto", padding: "14px 32px" }}
-          >
-            ▶ CLAIM NFT
-          </button>
+            {welcomeOpen ? "✕" : "▲"}
+          </div>
         </div>
+        {welcomeOpen && (
+          <div className="retro-window-body text-center">
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "var(--font-vt323), monospace",
+                fontSize: "22px",
+                color: "#111111",
+                lineHeight: "1.5",
+              }}
+            >
+              Limited pixel art NFT collection on Polygon.<br />
+              Handcrafted, on-chain, forever yours.
+            </p>
+            <button
+              onClick={scrollToMint}
+              className="retro-mint-btn"
+              style={{ width: "auto", padding: "14px 32px" }}
+            >
+              ▶ CLAIM NFT
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Why Mint window */}
       <div className="retro-window w-full max-w-2xl">
-        <div className="retro-window-header">
+        <div
+          className="retro-window-header"
+          onClick={!whyMintOpen ? () => setWhyMintOpen(true) : undefined}
+          style={!whyMintOpen ? { cursor: "pointer" } : undefined}
+          title={!whyMintOpen ? "Click to restore" : undefined}
+        >
           <span className="truncate">Why_Mint.txt</span>
-          <div className="retro-window-close">✕</div>
+          <div
+            className="retro-window-close"
+            onClick={(e) => { e.stopPropagation(); setWhyMintOpen((v) => !v); }}
+            title={whyMintOpen ? "Close" : "Restore"}
+          >
+            {whyMintOpen ? "✕" : "▲"}
+          </div>
         </div>
+        {whyMintOpen && (
         <div className="retro-window-body">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {reasons.map((r) => (
@@ -129,6 +159,7 @@ export default function Header() {
             ))}
           </div>
         </div>
+        )}
       </div>
 
       {/* Scroll down */}

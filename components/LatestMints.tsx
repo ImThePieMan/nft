@@ -238,6 +238,7 @@ export default function LatestMints() {
   const [items, setItems] = useState<MintItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [windowOpen, setWindowOpen] = useState(true);
   const knownSupplyRef   = useRef<bigint>(0n);
   const pollTimerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
   const trackRef         = useRef<HTMLDivElement>(null);
@@ -410,9 +411,20 @@ export default function LatestMints() {
   // ── Shared section title ──────────────────────────────────────────────────────
 
   const windowHeader = (
-    <div className="retro-window-header">
+    <div
+      className="retro-window-header"
+      onClick={!windowOpen ? () => setWindowOpen(true) : undefined}
+      style={!windowOpen ? { cursor: "pointer" } : undefined}
+      title={!windowOpen ? "Click to restore" : undefined}
+    >
       <span className="truncate">Latest_Mints.exe</span>
-      <div className="retro-window-close">✕</div>
+      <div
+        className="retro-window-close"
+        onClick={(e) => { e.stopPropagation(); setWindowOpen((v) => !v); }}
+        title={windowOpen ? "Close" : "Restore"}
+      >
+        {windowOpen ? "✕" : "▲"}
+      </div>
     </div>
   );
 
@@ -423,11 +435,13 @@ export default function LatestMints() {
       <section className="w-full py-8 px-4">
         <div className="retro-window">
           {windowHeader}
-          <div className="retro-window-body">
-            <div className="flex gap-4 overflow-hidden">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+          {windowOpen && (
+            <div className="retro-window-body">
+              <div className="flex gap-4 overflow-hidden">
+                {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     );
@@ -440,17 +454,19 @@ export default function LatestMints() {
       <section className="w-full py-8 px-4">
         <div className="retro-window">
           {windowHeader}
-          <div className="retro-window-body text-center">
-            <p
-              style={{
-                fontFamily: "var(--font-vt323), monospace",
-                fontSize: "20px",
-                color: "#E96635",
-              }}
-            >
-              {error}
-            </p>
-          </div>
+          {windowOpen && (
+            <div className="retro-window-body text-center">
+              <p
+                style={{
+                  fontFamily: "var(--font-vt323), monospace",
+                  fontSize: "20px",
+                  color: "#E96635",
+                }}
+              >
+                {error}
+              </p>
+            </div>
+          )}
         </div>
       </section>
     );
@@ -463,17 +479,19 @@ export default function LatestMints() {
       <section className="w-full py-8 px-4">
         <div className="retro-window">
           {windowHeader}
-          <div className="retro-window-body text-center">
-            <p
-              style={{
-                fontFamily: "var(--font-vt323), monospace",
-                fontSize: "22px",
-                color: "#111111",
-              }}
-            >
-              No mints yet. Be the first!
-            </p>
-          </div>
+          {windowOpen && (
+            <div className="retro-window-body text-center">
+              <p
+                style={{
+                  fontFamily: "var(--font-vt323), monospace",
+                  fontSize: "22px",
+                  color: "#111111",
+                }}
+              >
+                No mints yet. Be the first!
+              </p>
+            </div>
+          )}
         </div>
       </section>
     );
@@ -486,21 +504,23 @@ export default function LatestMints() {
     <section className="w-full py-8 px-4 overflow-hidden">
       <div className="retro-window">
         {windowHeader}
-        <div style={{ padding: "16px 0 16px" }}>
-          <div
-            ref={trackRef}
-            onMouseDown={onMouseDown}
-            className="flex gap-4 overflow-x-auto pb-2
-              [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
-            style={{ paddingLeft: 16, paddingRight: 16, cursor: "grab" }}
-          >
-            {displayItems.map((item, idx) => (
-              <div key={`${item.key}-${idx}`} className="shrink-0" style={{ width: CARD_W }}>
-                <MintCard item={item} />
-              </div>
-            ))}
+        {windowOpen && (
+          <div style={{ padding: "16px 0 16px" }}>
+            <div
+              ref={trackRef}
+              onMouseDown={onMouseDown}
+              className="flex gap-4 overflow-x-auto pb-2
+                [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
+              style={{ paddingLeft: 16, paddingRight: 16, cursor: "grab" }}
+            >
+              {displayItems.map((item, idx) => (
+                <div key={`${item.key}-${idx}`} className="shrink-0" style={{ width: CARD_W }}>
+                  <MintCard item={item} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
