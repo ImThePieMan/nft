@@ -26,35 +26,82 @@ export default function HowToMint() {
           What is an NFT?
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono mb-3">
-              Minting
-            </p>
-            <p className="text-gray-700 text-sm leading-relaxed font-medium mb-2">
-              What does it mean to mint?
-            </p>
-            <p className="text-gray-400 text-xs leading-relaxed">
-              Minting is the process of publishing a unique digital asset on the blockchain. When you
-              mint an NFT you create a permanent on‑chain record that proves the token exists — and
-              that you were the one who brought it to life. Think of it like pressing a vinyl record:
-              once it&apos;s pressed, it&apos;s real and traceable forever.
-            </p>
+        <div className="flex flex-col gap-6">
+          {/* Card: Minting */}
+          <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-50">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono">
+                Minting
+              </p>
+            </div>
+            <div className="divide-y divide-gray-50">
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">What is an NFT?</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  NFT stands for <span className="text-gray-500 font-medium">Non-Fungible Token</span> — a
+                  unique digital item recorded on a blockchain. Unlike regular files that can be copied
+                  endlessly, an NFT has a verified owner and a provable history. It can represent artwork,
+                  music, collectibles, in-game items, or any other digital good.
+                </p>
+              </div>
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">What does it mean to mint?</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  Minting is the act of writing a new token to the blockchain for the first time. When you
+                  mint, a smart contract creates a fresh NFT, assigns it a unique ID, and records you as its
+                  first owner — all in a single on-chain transaction. Think of it like pressing a vinyl
+                  record: once it&apos;s pressed, it&apos;s permanent and traceable forever.
+                </p>
+              </div>
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">Why does minting cost money?</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  Every action on a blockchain requires a small fee paid to network validators — called a{" "}
+                  <span className="text-gray-500 font-medium">gas fee</span>. On Polygon, gas is paid in
+                  MATIC and is usually a fraction of a cent. The mint price itself goes to the creator;
+                  gas is a separate, minimal network cost.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono mb-3">
-              Ownership
-            </p>
-            <p className="text-gray-700 text-sm leading-relaxed font-medium mb-2">
-              How do you own an NFT?
-            </p>
-            <p className="text-gray-400 text-xs leading-relaxed">
-              Ownership is stored directly in your wallet on the blockchain — no platform or company
-              can take it away. As long as you hold the private key to your wallet, you own the NFT.
-              You can hold it, display it in galleries like OpenSea, or sell it to anyone, anywhere,
-              at any time without asking anyone&apos;s permission.
-            </p>
+          {/* Card: Ownership */}
+          <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-50">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-300 font-mono">
+                Ownership
+              </p>
+            </div>
+            <div className="divide-y divide-gray-50">
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">How do you actually own an NFT?</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  Ownership is stored on the blockchain, not on any server. Your wallet address is
+                  registered as the token&apos;s owner in the contract. As long as you control your private
+                  key, you own the NFT — no company, no platform, and no one else can revoke it.
+                </p>
+              </div>
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">What can you do with it?</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  You can hold it in your wallet as a collectible, display it in on-chain galleries like
+                  OpenSea or Rarible, transfer it to a friend, or list it for sale — all without asking
+                  anyone&apos;s permission. Ownership travels with the token wherever it goes.
+                </p>
+              </div>
+              <div className="px-6 py-5">
+                <p className="text-gray-700 text-sm font-semibold mb-2">
+                  What if the website goes down?
+                </p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  The NFT lives on the blockchain, not on this site. Even if this website disappears
+                  tomorrow, the token remains in your wallet forever. Metadata and artwork for this
+                  collection are stored on{" "}
+                  <span className="text-gray-500 font-medium">IPFS</span>, a decentralised file network,
+                  so the content is durable too.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
