@@ -3,7 +3,7 @@ import { polygon } from "wagmi/chains";
 
 export const wagmiConfig = getDefaultConfig({
   appName: "NFT Mint",
-  projectId: "60d2acae28e3784b5f2378df5418fb29",
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   chains: [polygon],
   ssr: true,
 });
