@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   createPublicClient,
   http,
@@ -121,13 +121,15 @@ function MintCard({ item }: { item: MintItem }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden flex flex-col">
+    <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden flex flex-col h-full">
       <div className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
         {!imgError && item.image ? (
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover"
+            draggable="false"
+            onDragStart={(e) => e.preventDefault()}
+            className="w-full h-full object-cover pointer-events-none"
             onError={() => setImgError(true)}
           />
         ) : (
@@ -135,15 +137,15 @@ function MintCard({ item }: { item: MintItem }) {
         )}
       </div>
 
-      <div className="px-3 py-3 flex flex-col gap-2 flex-1">
-        <p className="text-gray-800 text-xs font-semibold truncate">{item.name}</p>
+      <div className="px-4 py-4 flex flex-col gap-3 flex-1">
+        <p className="text-gray-800 text-sm font-semibold truncate">{item.name}</p>
 
-        <div className="flex flex-col gap-0.5">
-          <p className="text-gray-400 text-[10px] font-mono">
+        <div className="flex flex-col gap-1">
+          <p className="text-gray-400 text-xs font-mono">
             <span className="text-gray-300 uppercase tracking-widest">ID </span>
             {item.tokenId.toString()}
           </p>
-          <p className="text-gray-400 text-[10px] font-mono truncate">
+          <p className="text-gray-400 text-xs font-mono truncate">
             <span className="text-gray-300 uppercase tracking-widest">BY </span>
             {shortenAddress(item.owner)}
           </p>
@@ -153,7 +155,7 @@ function MintCard({ item }: { item: MintItem }) {
           href={`${EXPLORER_NFT}${item.tokenId.toString()}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto text-[10px] font-mono uppercase tracking-widest text-gray-300 hover:text-gray-500 transition-colors duration-150"
+          className="mt-auto text-[11px] font-mono uppercase tracking-widest text-gray-300 hover:text-gray-500 transition-colors duration-150"
         >
           View on Polygonscan ↗
         </a>
@@ -162,20 +164,31 @@ function MintCard({ item }: { item: MintItem }) {
   );
 }
 
+// ── Card width (1.5× the original 240 px) ────────────────────────────────────
+const CARD_W = 360;     // px
+const CARD_GAP = 16;    // px (gap-4)
+// Sub-pixel speed: accumulated in accRef and flushed as integer px steps.
+// 0.35 acc/frame × 60fps ≈ 21 px/s — slow and smooth.
+const SCROLL_SPEED = 0.15;
+
 // ── Skeleton ──────────────────────────────────────────────────────────────────
 
 function SkeletonCard() {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden animate-pulse">
+    <div
+      className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden animate-pulse shrink-0"
+      style={{ width: CARD_W }}
+    >
       <div className="aspect-square bg-gray-100" />
-      <div className="px-3 py-3 flex flex-col gap-2">
-        <div className="h-2.5 w-3/4 rounded bg-gray-100" />
-        <div className="h-2 w-1/2 rounded bg-gray-100" />
-        <div className="h-2 w-2/3 rounded bg-gray-100" />
+      <div className="px-4 py-4 flex flex-col gap-3">
+        <div className="h-3 w-3/4 rounded bg-gray-100" />
+        <div className="h-2.5 w-1/2 rounded bg-gray-100" />
+        <div className="h-2.5 w-2/3 rounded bg-gray-100" />
       </div>
     </div>
   );
 }
+
 
 // ── Main component ────────────────────────────────────────────────────────────
 
@@ -183,8 +196,14 @@ export default function LatestMints() {
   const [items, setItems] = useState<MintItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const knownSupplyRef = useRef<bigint>(0n);
-  const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const knownSupplyRef   = useRef<bigint>(0n);
+  const pollTimerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
+  const trackRef         = useRef<HTMLDivElement>(null);
+  const rafRef           = useRef<number | null>(null);
+  const accRef           = useRef(0);      // sub-pixel accumulator
+  const isPausedRef      = useRef(false);  // true while user drags
+  const dragStartXRef    = useRef(0);
+  const dragScrollRef    = useRef(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -291,49 +310,122 @@ export default function LatestMints() {
     };
   }, []);
 
+  // ── Continuous RAF scroll ─────────────────────────────────────────────────────
+  // Sub-pixel accumulation: SCROLL_SPEED < 1 is collected in accRef and only
+  // applied to scrollLeft when it crosses an integer boundary, avoiding
+  // the browser's rounding that would otherwise freeze fractional increments.
+
+  useEffect(() => {
+    if (items.length === 0) return;
+
+    function tick() {
+      const el = trackRef.current;
+      if (el && !isPausedRef.current) {
+        accRef.current += SCROLL_SPEED;
+        if (accRef.current >= 1) {
+          const px = Math.floor(accRef.current);
+          accRef.current -= px;
+          // Seamless loop: when we pass the midpoint, jump back
+          const half = el.scrollWidth / 2;
+          el.scrollLeft = (el.scrollLeft + px >= half)
+            ? el.scrollLeft + px - half
+            : el.scrollLeft + px;
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [items]);
+
+  // ── Drag-to-scroll ────────────────────────────────────────────────────────────
+  // Uses window-level listeners so drag never breaks when the cursor leaves the div.
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    const el = trackRef.current;
+    if (!el) return;
+    e.preventDefault(); // prevent text selection
+
+    isPausedRef.current   = true;
+    dragStartXRef.current = e.clientX;
+    dragScrollRef.current = el.scrollLeft;
+    el.style.cursor       = "grabbing";
+
+    const onMove = (ev: MouseEvent) => {
+      el.scrollLeft = dragScrollRef.current - (ev.clientX - dragStartXRef.current);
+    };
+    const onUp = () => {
+      isPausedRef.current = false;
+      el.style.cursor     = "grab";
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup",   onUp);
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup",   onUp);
+  }, []);
+
+  // ── Shared section title ──────────────────────────────────────────────────────
+
   const title = (
     <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
       Latest Mints
     </p>
   );
 
+  // ── Loading ───────────────────────────────────────────────────────────────────
+
   if (loading) {
     return (
-      <section className="w-full max-w-3xl mx-auto px-4 py-16">
+      <section className="w-full py-16">
         {title}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {Array.from({ length: MAX_ITEMS }).map((_, i) => (
-            <SkeletonCard key={i} />
-          ))}
+        <div className="flex gap-4 overflow-hidden px-6">
+          {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
         </div>
       </section>
     );
   }
 
+  // ── Error ─────────────────────────────────────────────────────────────────────
+
   if (error) {
     return (
-      <section className="w-full max-w-3xl mx-auto px-4 py-16 flex flex-col items-center gap-4">
+      <section className="w-full py-16 flex flex-col items-center gap-4 px-4">
         {title}
         <p className="text-red-400 text-xs font-mono text-center max-w-sm">{error}</p>
       </section>
     );
   }
 
+  // ── Empty ─────────────────────────────────────────────────────────────────────
+
   if (!items.length) {
     return (
-      <section className="w-full max-w-3xl mx-auto px-4 py-16 flex flex-col items-center gap-4">
+      <section className="w-full py-16 flex flex-col items-center gap-4 px-4">
         {title}
         <p className="text-gray-300 text-xs font-mono">No mints yet. Be the first!</p>
       </section>
     );
   }
 
+  // Duplicate for seamless loop: when we reach the midpoint we reset to 0
+  const displayItems = [...items, ...items];
+
   return (
-    <section className="w-full max-w-3xl mx-auto px-4 py-16">
+    <section className="w-full py-16 overflow-hidden">
       {title}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <MintCard key={item.key} item={item} />
+
+      <div
+        ref={trackRef}
+        onMouseDown={onMouseDown}
+        className="flex gap-4 overflow-x-auto pb-2
+          [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
+        style={{ paddingLeft: 24, paddingRight: 24, cursor: "grab" }}
+      >
+        {displayItems.map((item, idx) => (
+          <div key={`${item.key}-${idx}`} className="shrink-0" style={{ width: CARD_W }}>
+            <MintCard item={item} />
+          </div>
         ))}
       </div>
     </section>
