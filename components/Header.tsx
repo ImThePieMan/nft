@@ -4,8 +4,31 @@ export default function Header() {
   const scrollToMint = () =>
     document.getElementById("mint-section")?.scrollIntoView({ behavior: "smooth" });
 
+  const reasons = [
+    {
+      icon: "✦",
+      title: "Verified Contract",
+      desc: "Smart contract audited and verified on-chain — open source, no surprises.",
+    },
+    {
+      icon: "◈",
+      title: "Limited Supply",
+      desc: "Fixed collection size. Once sold out, no new tokens can ever be minted.",
+    },
+    {
+      icon: "⬡",
+      title: "On-Chain Provenance",
+      desc: "Full ownership history permanently recorded on the blockchain.",
+    },
+    {
+      icon: "⌘",
+      title: "Community Access",
+      desc: "Holders get exclusive access to drops, events, and the inner circle.",
+    },
+  ];
+
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-4">
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-start px-4 pt-28 pb-24">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-purple-900/30 blur-3xl" />
@@ -32,6 +55,27 @@ export default function Header() {
         >
           Claim NFT
         </button>
+      </div>
+
+      {/* Why mint this collection */}
+      <div className="relative z-10 mt-20 w-full max-w-3xl">
+        <p className="text-center text-white/30 text-[23px] leading-[30px] uppercase tracking-widest mb-8">
+          Why mint
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {reasons.map((r) => (
+            <div
+              key={r.title}
+              className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.03] px-5 py-4 backdrop-blur-sm"
+            >
+              <span className="mt-0.5 text-purple-400 text-lg leading-none">{r.icon}</span>
+              <div>
+                <p className="text-white/90 text-sm font-semibold mb-1">{r.title}</p>
+                <p className="text-white/35 text-xs leading-relaxed">{r.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Scroll indicator */}
