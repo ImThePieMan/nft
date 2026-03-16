@@ -73,10 +73,32 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-300">
-        <span className="text-xs uppercase tracking-widest font-mono">scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-gray-300 to-transparent" />
+      {/* Scroll to next section */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        <button
+          onClick={() =>
+            document.getElementById("nft-explainer")?.scrollIntoView({ behavior: "smooth" })
+          }
+          className="group flex flex-col items-center gap-2 text-gray-300 hover:text-gray-500 transition-colors duration-200"
+        >
+          <span className="text-[10px] uppercase tracking-widest font-mono">
+            What is an NFT?
+          </span>
+          <span className="flex flex-col items-center gap-0.5">
+            <div className="w-px h-6 bg-gradient-to-b from-gray-300 to-transparent group-hover:from-gray-400 transition-colors duration-200" />
+            <svg
+              className="w-3 h-3 -mt-1"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M2 4l4 4 4-4" />
+            </svg>
+          </span>
+        </button>
       </div>
     </section>
   );

@@ -1,3 +1,34 @@
+"use client";
+
+function ScrollDown({ targetId, label }: { targetId: string; label: string }) {
+  return (
+    <div className="flex justify-center pt-8 pb-2">
+      <button
+        onClick={() =>
+          document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="group flex flex-col items-center gap-2 text-gray-300 hover:text-gray-500 transition-colors duration-200"
+      >
+        <span className="text-[10px] uppercase tracking-widest font-mono">{label}</span>
+        <span className="flex flex-col items-center gap-0.5">
+          <div className="w-px h-6 bg-gradient-to-b from-gray-300 to-transparent group-hover:from-gray-400 transition-colors duration-200" />
+          <svg
+            className="w-3 h-3 -mt-1"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M2 4l4 4 4-4" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  );
+}
+
 const steps = [
   {
     title: "Install a wallet",
@@ -21,7 +52,7 @@ export default function HowToMint() {
   return (
     <>
       {/* What is minting / NFT ownership explainer */}
-      <section className="w-full max-w-3xl mx-auto px-4 pt-4 pb-12">
+      <section id="nft-explainer" className="w-full max-w-3xl mx-auto px-4 pt-4 pb-12">
         <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
           What is an NFT?
         </p>
@@ -104,9 +135,11 @@ export default function HowToMint() {
             </div>
           </div>
         </div>
+
+        <ScrollDown targetId="how-to-mint" label="How to Mint" />
       </section>
 
-    <section className="w-full max-w-3xl mx-auto px-4 pb-16">
+    <section id="how-to-mint" className="w-full max-w-3xl mx-auto px-4 pb-16">
       <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
         How to mint
       </p>
@@ -132,6 +165,8 @@ export default function HowToMint() {
           </li>
         ))}
       </ol>
+
+      <ScrollDown targetId="mint-section" label="Claim NFT" />
     </section>
     </>
   );
