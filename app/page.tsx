@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center bg-[#0a0a0f]">
+    <main className="flex flex-col items-center bg-gray-50 min-h-screen">
       <Header />
 
       <div id="mint-section" className="relative z-10 w-full px-4 py-12">

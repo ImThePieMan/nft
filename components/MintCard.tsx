@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import { polygon } from "wagmi/chains";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/config/contractConfig";
@@ -78,25 +78,26 @@ export default function MintCard() {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-sm shadow-2xl">
+      <div className="relative rounded-3xl overflow-hidden bg-white border border-gray-200 shadow-xl">
         {/* Collection image */}
-        <div className="relative aspect-square w-full bg-gradient-to-br from-purple-900/60 via-indigo-900/60 to-blue-900/60">
+        <div className="relative aspect-square w-full bg-gray-100">
           <Image
             src="/nft-preview.png"
             alt={collectionName ?? "NFT Collection"}
             fill
-            className="object-cover opacity-90"
+            className="object-cover opacity-95"
             priority
+            unoptimized
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = "none";
             }}
           />
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
           {/* Collection name badge */}
           <div className="absolute bottom-4 left-4 right-4">
-            <h1 className="text-2xl font-bold text-white drop-shadow-lg truncate">
+            <h1 className="text-2xl font-bold text-white drop-shadow-lg truncate font-mono">
               {isLoadingContract ? (
                 <span className="animate-pulse bg-white/20 rounded w-40 h-7 inline-block" />
               ) : (
@@ -108,17 +109,17 @@ export default function MintCard() {
           {/* Status badges */}
           <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
             {paused && (
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-500/80 text-yellow-100 backdrop-blur-sm">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/90 text-yellow-900">
                 Paused
               </span>
             )}
             {isSoldOut && (
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/80 text-red-100 backdrop-blur-sm">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/90 text-white">
                 Sold Out
               </span>
             )}
             {isWrongNetwork && (
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/80 text-orange-100 backdrop-blur-sm">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-orange-400/90 text-white">
                 Wrong Network
               </span>
             )}
@@ -129,11 +130,11 @@ export default function MintCard() {
         <div className="p-6 space-y-5">
           {/* Stats row */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Mint Price</p>
-              <p className="text-lg font-bold text-white">
+            <div className="rounded-2xl bg-gray-50 border border-gray-200 p-4">
+              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1 font-mono">Mint Price</p>
+              <p className="text-lg font-bold text-gray-900 font-mono">
                 {isLoadingContract ? (
-                  <span className="animate-pulse bg-white/20 rounded w-24 h-5 inline-block" />
+                  <span className="animate-pulse bg-gray-200 rounded w-24 h-5 inline-block" />
                 ) : cost !== undefined ? (
                   `${formatEther(cost)} MATIC`
                 ) : (
@@ -141,11 +142,11 @@ export default function MintCard() {
                 )}
               </p>
             </div>
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Max / Wallet</p>
-              <p className="text-lg font-bold text-white">
+            <div className="rounded-2xl bg-gray-50 border border-gray-200 p-4">
+              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1 font-mono">Max / Wallet</p>
+              <p className="text-lg font-bold text-gray-900 font-mono">
                 {isLoadingContract ? (
-                  <span className="animate-pulse bg-white/20 rounded w-12 h-5 inline-block" />
+                  <span className="animate-pulse bg-gray-200 rounded w-12 h-5 inline-block" />
                 ) : (
                   maxMintAmount !== undefined ? Number(maxMintAmount) : "—"
                 )}
@@ -156,10 +157,10 @@ export default function MintCard() {
           {/* Supply progress */}
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-white/60">Supply</span>
-              <span className="text-white font-medium">
+              <span className="text-gray-400 font-mono">Supply</span>
+              <span className="text-gray-800 font-medium font-mono">
                 {isLoadingContract ? (
-                  <span className="animate-pulse bg-white/20 rounded w-20 h-4 inline-block" />
+                  <span className="animate-pulse bg-gray-200 rounded w-20 h-4 inline-block" />
                 ) : (
                   totalSupply !== undefined && maxSupply !== undefined
                     ? `${Number(totalSupply).toLocaleString()} / ${Number(maxSupply).toLocaleString()}`
@@ -167,20 +168,20 @@ export default function MintCard() {
                 )}
               </span>
             </div>
-            <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+            <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden border border-gray-200">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-400 transition-all duration-500"
+                className="h-full rounded-full bg-green-500 transition-all duration-500"
                 style={{ width: `${supplyProgress}%` }}
               />
             </div>
           </div>
 
           {/* Divider */}
-          <div className="border-t border-white/10" />
+          <div className="border-t border-gray-200" />
 
           {/* Quantity selector */}
           <div className="flex items-center justify-between">
-            <span className="text-white/60 text-sm">Quantity</span>
+            <span className="text-gray-500 text-sm font-mono">Quantity</span>
             <QuantitySelector
               quantity={quantity}
               max={maxQty}
@@ -190,9 +191,9 @@ export default function MintCard() {
           </div>
 
           {/* Total price */}
-          <div className="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 px-4 py-3">
-            <span className="text-white/60 text-sm">Total</span>
-            <span className="text-white font-bold text-lg">
+          <div className="flex items-center justify-between rounded-2xl bg-gray-50 border border-gray-200 px-4 py-3">
+            <span className="text-gray-400 text-sm font-mono">Total</span>
+            <span className="text-gray-900 font-bold text-lg font-mono">
               {cost !== undefined
                 ? `${formatEther(totalPrice)} MATIC`
                 : "—"}
@@ -209,10 +210,9 @@ export default function MintCard() {
               onClick={handleMint}
               disabled={!canMint}
               className="w-full py-4 rounded-2xl font-bold text-base transition-all duration-200
-                bg-gradient-to-r from-purple-600 to-indigo-500
-                hover:from-purple-500 hover:to-indigo-400
-                disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:from-purple-600 disabled:hover:to-indigo-500
-                text-white shadow-lg shadow-purple-900/30"
+                bg-green-600 hover:bg-green-500
+                disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed
+                text-white shadow-lg shadow-green-200"
             >
               {getMintButtonLabel()}
             </button>
@@ -220,13 +220,13 @@ export default function MintCard() {
 
           {/* Transaction status */}
           {isMinted && txHash && (
-            <div className="rounded-2xl bg-green-500/10 border border-green-500/30 p-4 text-center space-y-2">
-              <p className="text-green-400 font-semibold text-sm">Minted successfully!</p>
+            <div className="rounded-2xl bg-green-50 border border-green-200 p-4 text-center space-y-2">
+              <p className="text-green-700 font-semibold text-sm">Minted successfully!</p>
               <a
                 href={`https://polygonscan.com/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-green-300/70 hover:text-green-300 underline underline-offset-2 break-all"
+                className="text-xs text-green-600/70 hover:text-green-700 underline underline-offset-2 break-all font-mono"
               >
                 View on PolygonScan ↗
               </a>
@@ -234,8 +234,8 @@ export default function MintCard() {
           )}
 
           {mintError && (
-            <div className="rounded-2xl bg-red-500/10 border border-red-500/30 p-4">
-              <p className="text-red-400 text-sm text-center">
+            <div className="rounded-2xl bg-red-50 border border-red-200 p-4">
+              <p className="text-red-600 text-sm text-center font-mono">
                 {mintError.message.includes("User rejected")
                   ? "Transaction rejected."
                   : "Transaction failed. Please try again."}
