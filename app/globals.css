@@ -9,3 +9,157 @@ body {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --color-teal: #2baba5;
+  --color-mint: #93d3ae;
+  --color-cream: #faecb6;
+  --color-orange: #f9a822;
+  --color-coral: #e96635;
+  --color-border: #1a1a1a;
+  --color-text: #111111;
+  --font-pixel: var(--font-press-start), monospace;
+  --font-retro: var(--font-vt323), monospace;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
+}
+
+/* ── Retro Window ─────────────────────────────────────────────────────────── */
+
+.retro-window {
+  border: 3px solid #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #faecb6;
+  animation: window-open 0.2s ease-out;
+}
+
+.retro-window-header {
+  height: 40px;
+  background: #f9a822;
+  border-bottom: 3px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-family: var(--font-press-start), monospace;
+  font-size: 11px;
+  color: #111111;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.retro-window-close {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #1a1a1a;
+  background: #faecb6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-family: var(--font-press-start), monospace;
+  cursor: pointer;
+  color: #111111;
+  flex-shrink: 0;
+  line-height: 1;
+  user-select: none;
+}
+
+.retro-window-close:hover {
+  background: #e96635;
+  color: white;
+}
+
+.retro-window-body {
+  padding: 20px;
+  background: #faecb6;
+}
+
+/* ── Retro Button ─────────────────────────────────────────────────────────── */
+
+.retro-btn {
+  background: #faecb6;
+  border: 3px solid #1a1a1a;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-family: var(--font-vt323), monospace;
+  font-size: 20px;
+  cursor: pointer;
+  color: #111111;
+  transition: background 0.1s, transform 0.1s;
+  line-height: 1;
+}
+
+.retro-btn:hover:not(:disabled) {
+  background: #f9a822;
+}
+
+.retro-btn:active:not(:disabled) {
+  background: #e96635;
+  color: white;
+  transform: translateY(2px);
+}
+
+.retro-btn:disabled {
+  background: #c8c8c8;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* ── Mint Button ──────────────────────────────────────────────────────────── */
+
+.retro-mint-btn {
+  background: #e96635;
+  color: white;
+  border: 3px solid #1a1a1a;
+  border-radius: 6px;
+  font-family: var(--font-vt323), monospace;
+  font-size: 24px;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.1s;
+  width: 100%;
+  line-height: 1;
+}
+
+.retro-mint-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.retro-mint-btn:active:not(:disabled) {
+  transform: translateY(2px) scale(1);
+}
+
+.retro-mint-btn:disabled {
+  background: #c8c8c8;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── NFT Card ─────────────────────────────────────────────────────────────── */
+
+.retro-nft-card {
+  background: #faecb6;
+  border: 3px solid #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.retro-nft-card:hover {
+  box-shadow: 0 0 0 3px #f9a822;
+}
+
+/* ── Window open animation ────────────────────────────────────────────────── */
+
+@keyframes window-open {
+  from {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

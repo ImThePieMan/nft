@@ -121,8 +121,11 @@ function MintCard({ item }: { item: MintItem }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden flex flex-col h-full">
-      <div className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
+    <div className="retro-nft-card flex flex-col h-full">
+      <div
+        className="aspect-square flex items-center justify-center overflow-hidden"
+        style={{ borderBottom: "3px solid #1A1A1A", background: "#93D3AE" }}
+      >
         {!imgError && item.image ? (
           <img
             src={item.image}
@@ -130,23 +133,56 @@ function MintCard({ item }: { item: MintItem }) {
             draggable="false"
             onDragStart={(e) => e.preventDefault()}
             className="w-full h-full object-cover pointer-events-none"
+            style={{ imageRendering: "pixelated", border: "none" }}
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="text-gray-200 text-3xl select-none">◈</span>
+          <span
+            style={{
+              fontFamily: "var(--font-press-start), monospace",
+              fontSize: "32px",
+              color: "#1A1A1A",
+              userSelect: "none",
+            }}
+          >
+            ◈
+          </span>
         )}
       </div>
 
-      <div className="px-4 py-4 flex flex-col gap-3 flex-1">
-        <p className="text-gray-800 text-sm font-semibold truncate">{item.name}</p>
+      <div className="px-3 py-3 flex flex-col gap-2 flex-1" style={{ background: "#FAECB6" }}>
+        <p
+          className="truncate"
+          style={{
+            fontFamily: "var(--font-press-start), monospace",
+            fontSize: "9px",
+            color: "#111111",
+            lineHeight: "1.7",
+          }}
+        >
+          {item.name}
+        </p>
 
         <div className="flex flex-col gap-1">
-          <p className="text-gray-400 text-xs font-mono">
-            <span className="text-gray-300 uppercase tracking-widest">ID </span>
+          <p
+            style={{
+              fontFamily: "var(--font-ibm-plex-mono), monospace",
+              fontSize: "13px",
+              color: "#111111",
+            }}
+          >
+            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "11px" }}>ID </span>
             {item.tokenId.toString()}
           </p>
-          <p className="text-gray-400 text-xs font-mono truncate">
-            <span className="text-gray-300 uppercase tracking-widest">BY </span>
+          <p
+            className="truncate"
+            style={{
+              fontFamily: "var(--font-ibm-plex-mono), monospace",
+              fontSize: "13px",
+              color: "#111111",
+            }}
+          >
+            <span style={{ opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "11px" }}>BY </span>
             {shortenAddress(item.owner)}
           </p>
         </div>
@@ -155,7 +191,13 @@ function MintCard({ item }: { item: MintItem }) {
           href={`${EXPLORER_NFT}${item.tokenId.toString()}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto text-[11px] font-mono uppercase tracking-widest text-gray-300 hover:text-gray-500 transition-colors duration-150"
+          className="mt-auto"
+          style={{
+            fontFamily: "var(--font-vt323), monospace",
+            fontSize: "16px",
+            color: "#E96635",
+            textDecoration: "underline",
+          }}
         >
           View on Polygonscan ↗
         </a>
@@ -176,14 +218,14 @@ const SCROLL_SPEED = 0.15;
 function SkeletonCard() {
   return (
     <div
-      className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden animate-pulse shrink-0"
+      className="retro-nft-card animate-pulse shrink-0"
       style={{ width: CARD_W }}
     >
-      <div className="aspect-square bg-gray-100" />
-      <div className="px-4 py-4 flex flex-col gap-3">
-        <div className="h-3 w-3/4 rounded bg-gray-100" />
-        <div className="h-2.5 w-1/2 rounded bg-gray-100" />
-        <div className="h-2.5 w-2/3 rounded bg-gray-100" />
+      <div className="aspect-square" style={{ background: "#93D3AE", borderBottom: "3px solid #1A1A1A" }} />
+      <div className="px-3 py-3 flex flex-col gap-3" style={{ background: "#FAECB6" }}>
+        <div className="h-3 w-3/4 rounded" style={{ background: "#93D3AE" }} />
+        <div className="h-2.5 w-1/2 rounded" style={{ background: "#93D3AE" }} />
+        <div className="h-2.5 w-2/3 rounded" style={{ background: "#93D3AE" }} />
       </div>
     </div>
   );
@@ -367,20 +409,25 @@ export default function LatestMints() {
 
   // ── Shared section title ──────────────────────────────────────────────────────
 
-  const title = (
-    <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
-      Latest Mints
-    </p>
+  const windowHeader = (
+    <div className="retro-window-header">
+      <span className="truncate">Latest_Mints.exe</span>
+      <div className="retro-window-close">✕</div>
+    </div>
   );
 
   // ── Loading ───────────────────────────────────────────────────────────────────
 
   if (loading) {
     return (
-      <section className="w-full py-16">
-        {title}
-        <div className="flex gap-4 overflow-hidden px-6">
-          {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+      <section className="w-full py-8 px-4">
+        <div className="retro-window">
+          {windowHeader}
+          <div className="retro-window-body">
+            <div className="flex gap-4 overflow-hidden">
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+            </div>
+          </div>
         </div>
       </section>
     );
@@ -390,9 +437,21 @@ export default function LatestMints() {
 
   if (error) {
     return (
-      <section className="w-full py-16 flex flex-col items-center gap-4 px-4">
-        {title}
-        <p className="text-red-400 text-xs font-mono text-center max-w-sm">{error}</p>
+      <section className="w-full py-8 px-4">
+        <div className="retro-window">
+          {windowHeader}
+          <div className="retro-window-body text-center">
+            <p
+              style={{
+                fontFamily: "var(--font-vt323), monospace",
+                fontSize: "20px",
+                color: "#E96635",
+              }}
+            >
+              {error}
+            </p>
+          </div>
+        </div>
       </section>
     );
   }
@@ -401,9 +460,21 @@ export default function LatestMints() {
 
   if (!items.length) {
     return (
-      <section className="w-full py-16 flex flex-col items-center gap-4 px-4">
-        {title}
-        <p className="text-gray-300 text-xs font-mono">No mints yet. Be the first!</p>
+      <section className="w-full py-8 px-4">
+        <div className="retro-window">
+          {windowHeader}
+          <div className="retro-window-body text-center">
+            <p
+              style={{
+                fontFamily: "var(--font-vt323), monospace",
+                fontSize: "22px",
+                color: "#111111",
+              }}
+            >
+              No mints yet. Be the first!
+            </p>
+          </div>
+        </div>
       </section>
     );
   }
@@ -412,21 +483,24 @@ export default function LatestMints() {
   const displayItems = [...items, ...items];
 
   return (
-    <section className="w-full py-16 overflow-hidden">
-      {title}
-
-      <div
-        ref={trackRef}
-        onMouseDown={onMouseDown}
-        className="flex gap-4 overflow-x-auto pb-2
-          [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
-        style={{ paddingLeft: 24, paddingRight: 24, cursor: "grab" }}
-      >
-        {displayItems.map((item, idx) => (
-          <div key={`${item.key}-${idx}`} className="shrink-0" style={{ width: CARD_W }}>
-            <MintCard item={item} />
+    <section className="w-full py-8 px-4 overflow-hidden">
+      <div className="retro-window">
+        {windowHeader}
+        <div style={{ padding: "16px 0 16px" }}>
+          <div
+            ref={trackRef}
+            onMouseDown={onMouseDown}
+            className="flex gap-4 overflow-x-auto pb-2
+              [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
+            style={{ paddingLeft: 16, paddingRight: 16, cursor: "grab" }}
+          >
+            {displayItems.map((item, idx) => (
+              <div key={`${item.key}-${idx}`} className="shrink-0" style={{ width: CARD_W }}>
+                <MintCard item={item} />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );

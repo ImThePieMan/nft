@@ -6,100 +6,141 @@ export default function Header() {
 
   const reasons = [
     {
-      icon: "✦",
+      icon: "💾",
       title: "Verified Contract",
       desc: "Smart contract audited and verified on-chain — open source, no surprises.",
     },
     {
-      icon: "◈",
+      icon: "📁",
       title: "Limited Supply",
       desc: "Fixed collection size. Once sold out, no new tokens can ever be minted.",
     },
     {
-      icon: "⬡",
+      icon: "🌐",
       title: "On-Chain Provenance",
       desc: "Full ownership history permanently recorded on the blockchain.",
     },
     {
-      icon: "⌘",
+      icon: "🎨",
       title: "Community Access",
       desc: "Holders get exclusive access to drops, events, and the inner circle.",
     },
   ];
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-start px-4 pt-28 pb-24">
+    <section className="relative w-full flex flex-col items-center px-4 pt-14 pb-20 gap-8">
 
-      <div className="relative z-10 flex flex-col items-center gap-8 text-center">
-        {/* Collection name */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
+      {/* Title */}
+      <div className="text-center">
+        <h1
+          className="leading-tight mb-3"
+          style={{
+            fontFamily: "var(--font-press-start), monospace",
+            fontSize: "clamp(14px, 3vw, 28px)",
+            color: "#111111",
+          }}
+        >
           昭和伝説ガレージ
         </h1>
-        <p className="text-gray-400 text-sm uppercase tracking-widest font-mono">
+        <p
+          style={{
+            fontFamily: "var(--font-vt323), monospace",
+            fontSize: "22px",
+            color: "#FAECB6",
+            letterSpacing: "0.1em",
+          }}
+        >
           しょうわ でんせつ ガレージ
         </p>
-
-        {/* Claim NFT button — green */}
-        <button
-          onClick={scrollToMint}
-          className="mt-4 px-10 py-4 rounded-2xl font-bold text-base text-white
-            bg-green-600
-            hover:bg-green-500
-            shadow-lg shadow-green-200
-            transition-all duration-200 hover:scale-105 active:scale-95"
-        >
-          Claim NFT
-        </button>
       </div>
 
-      {/* Why mint this collection */}
-      <div className="relative z-10 mt-20 w-full max-w-3xl">
-        <p className="text-center text-gray-400 text-[23px] leading-[30px] uppercase tracking-widest mb-8 font-mono">
-          Why mint
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {reasons.map((r) => (
-            <div
-              key={r.title}
-              className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm"
-            >
-              <span className="mt-0.5 text-green-600 text-lg leading-none">{r.icon}</span>
-              <div>
-                <p className="text-gray-800 text-sm font-semibold mb-1">{r.title}</p>
-                <p className="text-gray-400 text-xs leading-relaxed">{r.desc}</p>
-              </div>
-            </div>
-          ))}
+      {/* Welcome window */}
+      <div className="retro-window w-full max-w-lg">
+        <div className="retro-window-header">
+          <span className="truncate">Welcome.exe</span>
+          <div className="retro-window-close">✕</div>
+        </div>
+        <div className="retro-window-body text-center">
+          <p
+            className="mb-6"
+            style={{
+              fontFamily: "var(--font-vt323), monospace",
+              fontSize: "22px",
+              color: "#111111",
+              lineHeight: "1.5",
+            }}
+          >
+            Limited pixel art NFT collection on Polygon.<br />
+            Handcrafted, on-chain, forever yours.
+          </p>
+          <button
+            onClick={scrollToMint}
+            className="retro-mint-btn"
+            style={{ width: "auto", padding: "14px 32px" }}
+          >
+            ▶ CLAIM NFT
+          </button>
         </div>
       </div>
 
-      {/* Scroll to next section */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <button
-          onClick={() =>
-            document.getElementById("nft-explainer")?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="group flex flex-col items-center gap-2 text-gray-300 hover:text-gray-500 transition-colors duration-200"
-        >
-          <span className="text-[10px] uppercase tracking-widest font-mono">
-            What is an NFT?
-          </span>
-          <span className="flex flex-col items-center gap-0.5">
-            <div className="w-px h-6 bg-gradient-to-b from-gray-300 to-transparent group-hover:from-gray-400 transition-colors duration-200" />
-            <svg
-              className="w-3 h-3 -mt-1"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M2 4l4 4 4-4" />
-            </svg>
-          </span>
-        </button>
+      {/* Why Mint window */}
+      <div className="retro-window w-full max-w-2xl">
+        <div className="retro-window-header">
+          <span className="truncate">Why_Mint.txt</span>
+          <div className="retro-window-close">✕</div>
+        </div>
+        <div className="retro-window-body">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {reasons.map((r) => (
+              <div
+                key={r.title}
+                className="flex items-start gap-3 p-3"
+                style={{
+                  border: "2px solid #1A1A1A",
+                  borderRadius: "4px",
+                  background: "#93D3AE",
+                }}
+              >
+                <span className="text-xl shrink-0 mt-0.5">{r.icon}</span>
+                <div>
+                  <p
+                    className="mb-1"
+                    style={{
+                      fontFamily: "var(--font-press-start), monospace",
+                      fontSize: "9px",
+                      color: "#111111",
+                      lineHeight: "1.7",
+                    }}
+                  >
+                    {r.title}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-vt323), monospace",
+                      fontSize: "17px",
+                      color: "#111111",
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    {r.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* Scroll down */}
+      <button
+        onClick={() =>
+          document.getElementById("nft-explainer")?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="retro-btn"
+        style={{ fontSize: "18px", padding: "8px 20px" }}
+      >
+        ▼ What is an NFT?
+      </button>
     </section>
   );
 }

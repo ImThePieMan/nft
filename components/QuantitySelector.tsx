@@ -17,24 +17,36 @@ export default function QuantitySelector({
   const increment = () => onChange(Math.min(max, quantity + 1));
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-3">
       <button
         onClick={decrement}
         disabled={disabled || quantity <= 1}
-        className="w-10 h-10 rounded-full bg-red-500 hover:bg-red-400 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white text-xl font-bold transition-colors shadow-sm shadow-red-200"
+        className="retro-btn"
+        style={{ padding: "6px 14px", fontSize: "22px", minWidth: "40px" }}
         aria-label="Decrease quantity"
       >
         −
       </button>
 
-      <span className="w-10 text-center text-2xl font-bold text-gray-900 tabular-nums font-mono">
+      <span
+        style={{
+          fontFamily: "var(--font-ibm-plex-mono), monospace",
+          fontSize: "22px",
+          fontWeight: 700,
+          color: "#111111",
+          minWidth: "36px",
+          textAlign: "center",
+          display: "block",
+        }}
+      >
         {quantity}
       </span>
 
       <button
         onClick={increment}
         disabled={disabled || quantity >= max}
-        className="w-10 h-10 rounded-full bg-green-600 hover:bg-green-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white text-xl font-bold transition-colors shadow-sm shadow-green-200"
+        className="retro-btn"
+        style={{ padding: "6px 14px", fontSize: "22px", minWidth: "40px" }}
         aria-label="Increase quantity"
       >
         +
