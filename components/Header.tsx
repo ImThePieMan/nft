@@ -87,7 +87,7 @@ export default function Header() {
                 lineHeight: "1.6",
               }}
             >
-              1 000 unique pixel art pieces — handcrafted, on-chain, <strong>forever yours.</strong>
+              <strong>1 000 unique</strong> Japanese car art pieces — handcrafted, on-chain, <strong>forever yours.</strong>
             </p>
             <p
               className="mb-6"
