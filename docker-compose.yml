@@ -1,0 +1,11 @@
+services:
+  app:
+    image: ghcr.io/${GITHUB_USERNAME}/nft-mint:latest
+    container_name: nft-mint
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    # NEXT_PUBLIC_* vars are already baked into the image at build time.
+    # Add any server-side-only env vars here if needed in the future.
