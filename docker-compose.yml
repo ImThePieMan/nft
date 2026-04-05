@@ -4,7 +4,7 @@ services:
     container_name: nft-mint
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       - NODE_ENV=production
     # NEXT_PUBLIC_* vars are already baked into the image at build time.
